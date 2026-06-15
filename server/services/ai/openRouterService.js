@@ -27,10 +27,10 @@ export async function queryOpenRouter(messages, model, responseFormat) {
 
   const modelToUse = model || "google/gemini-2.5-flash";
   const candidates = [modelToUse];
-  if (modelToUse === "anthropic/claude-3.5-sonnet") {
-    candidates.push("anthropic/claude-3.5-sonnet:beta");
-    candidates.push("anthropic/claude-3.5-sonnet-20241022");
-    candidates.push("anthropic/claude-3.5-sonnet-20240620");
+  if (modelToUse.includes("claude-sonnet") || modelToUse.includes("claude-3.5-sonnet")) {
+    candidates.push("anthropic/claude-sonnet-4.6");
+    candidates.push("anthropic/claude-sonnet-4.5");
+    candidates.push("anthropic/claude-3.5-sonnet");
   }
 
   let lastErrorText = "";
