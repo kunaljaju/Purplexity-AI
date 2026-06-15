@@ -1,0 +1,6 @@
+{
+  "name": "Purplexity",
+  "description": "A luxury search engine clone of Perplexity featuring a liquid glass search interface, dynamic search grounding, and a futuristic dark purple theme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

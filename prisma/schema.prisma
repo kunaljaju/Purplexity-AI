@@ -1,0 +1,87 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String            @id @default(uuid())
+  email        String            @unique
+  passwordHash String?
+  createdAt    DateTime          @default(now())
+  sessions     ChatSession[]
+  bookmarks    Bookmark[]
+  subscription UserSubscription?
+  payments     PaymentHistory[]
+}
+
+model ChatSession {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  mode      String
+  createdAt DateTime  @default(now())
+  messages  Message[]
+  bookmarks Bookmark[]
+}
+
+model Message {
+  id            String      @id @default(uuid())
+  sessionId     String
+  session       ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role          String
+  content       String
+  searchQueries Json?
+  citations     Json?
+  followUps     Json?
+  timestamp     String
+  modeUsed      String?
+  searchSteps   Json?
+  createdAt     DateTime    @default(now())
+}
+
+model Bookmark {
+  id            String      @id @default(uuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId     String
+  session       ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionTitle  String
+  queryText     String
+  content       String
+  citations     Json?
+  searchQueries Json?
+  modeUsed      String?
+  timestamp     String
+  bookmarkedAt  String
+  createdAt     DateTime    @default(now())
+}
+
+model UserSubscription {
+  userId               String    @id
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email                String?
+  status               String    @default("free")
+  plan                 String    @default("free")
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
+model PaymentHistory {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Float
+  currency      String   @default("USD")
+  status        String   // "succeeded", "failed", "pending"
+  paymentMethod String?
+  description   String?
+  createdAt     DateTime @default(now())
+}
