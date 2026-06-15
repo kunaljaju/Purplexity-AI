@@ -320,53 +320,59 @@ export function AuthPage({ onAuthSuccess }) {
           </button>
 
           {/* Google Configuration Guidance */}
-          {googleConfigError && (
-            <div className="mt-4 bg-purple-950/20 border border-purple-500/30 text-purple-300 rounded-xl p-4 text-xs space-y-3">
-              <div className="flex gap-2 items-center font-bold text-purple-400">
-                <Globe className="w-4 h-4 text-purple-450 shrink-0" />
-                <span>⚙️ Firebase Setup Help</span>
+          {googleConfigError && (() => {
+            const firebaseProjectId = import.meta.env.VITE_FIREBASE_PROJECT_ID || "your-project";
+            return (
+              <div className="mt-4 bg-purple-950/20 border border-purple-500/30 text-purple-300 rounded-xl p-4 text-xs space-y-3">
+                <div className="flex gap-2 items-center font-bold text-purple-400">
+                  <Globe className="w-4 h-4 text-purple-450 shrink-0" />
+                  <span>⚙️ Firebase Setup Help</span>
+                </div>
+                <p className="text-zinc-355 leading-relaxed text-[11px] text-left">
+                  Google Sign-In has not been enabled for <code className="text-purple-400 bg-black/40 px-1 py-0.5 rounded font-mono">{firebaseProjectId}</code>. Enable it in your console to login:
+                </p>
+                <div className="pt-2 border-t border-purple-500/10 space-y-2 text-[11px] text-zinc-400 text-left">
+                  <p><strong>Remediation Steps:</strong></p>
+                  <ol className="list-decimal pl-4 space-y-1.5 text-zinc-350">
+                    <li>Visit your <a href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/providers`} target="_blank" rel="noopener noreferrer" className="text-purple-400 underline hover:text-purple-300 inline-flex items-center gap-0.5">Firebase Authentication console <ExternalLink className="w-3.5 h-3.5 inline shrink-0" /></a>.</li>
+                    <li>Click <strong>Add new provider</strong> and choose <strong>Google</strong>.</li>
+                    <li>Toggle <strong>Enable</strong>, select your support email, and save.</li>
+                    <li>Ensure your domain is in the <strong>Authorized Domains</strong> setting tab to prevent redirect errors.</li>
+                  </ol>
+                </div>
               </div>
-              <p className="text-zinc-350 leading-relaxed text-[11px] text-left">
-                Google Sign-In has not been enabled for <code className="text-purple-400 bg-black/40 px-1 py-0.5 rounded font-mono">purplexity-4eef7</code>. Enable it in your console to login:
-              </p>
-              <div className="pt-2 border-t border-purple-500/10 space-y-2 text-[11px] text-zinc-400 text-left">
-                <p><strong>Remediation Steps:</strong></p>
-                <ol className="list-decimal pl-4 space-y-1.5 text-zinc-350">
-                  <li>Visit your <a href="https://console.firebase.google.com/project/purplexity-4eef7/authentication/providers" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline hover:text-purple-300 inline-flex items-center gap-0.5">Firebase Authentication console <ExternalLink className="w-3.5 h-3.5 inline shrink-0" /></a>.</li>
-                  <li>Click <strong>Add new provider</strong> and choose <strong>Google</strong>.</li>
-                  <li>Toggle <strong>Enable</strong>, select your support email, and save.</li>
-                  <li>Ensure your domain is in the <strong>Authorized Domains</strong> setting tab to prevent redirect errors.</li>
-                </ol>
-              </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Google Domain Authorization Guidance */}
-          {googleDomainError && (
-            <div className="mt-4 bg-amber-950/20 border border-amber-550/30 text-amber-300 rounded-xl p-4 text-xs space-y-3">
-              <div className="flex gap-2 items-center font-bold text-amber-400">
-                <Globe className="w-4 h-4 text-amber-450 shrink-0" />
-                <span>🌐 Add Authorized Domain to Firebase</span>
+          {googleDomainError && (() => {
+            const firebaseProjectId = import.meta.env.VITE_FIREBASE_PROJECT_ID || "your-project";
+            return (
+              <div className="mt-4 bg-amber-950/20 border border-amber-550/30 text-amber-300 rounded-xl p-4 text-xs space-y-3">
+                <div className="flex gap-2 items-center font-bold text-amber-400">
+                  <Globe className="w-4 h-4 text-amber-450 shrink-0" />
+                  <span>🌐 Add Authorized Domain to Firebase</span>
+                </div>
+                <p className="text-zinc-355 leading-relaxed text-[11px] text-left">
+                  Firebase limits sign-in traffic to authorized URLs. Please whitelist this preview domain in your project console:
+                </p>
+                <div className="bg-black/40 rounded p-2 text-[11px] space-y-1 text-left font-mono border border-amber-500/10">
+                  <div className="text-zinc-400">Domain to add:</div>
+                  <div className="text-amber-400 select-all font-bold">{window.location.hostname}</div>
+                </div>
+                <div className="pt-2 border-t border-amber-500/10 space-y-2 text-[11px] text-zinc-400 text-left">
+                  <p><strong>Remediation Steps:</strong></p>
+                  <ol className="list-decimal pl-4 space-y-1.5 text-zinc-350">
+                    <li>Go to your <a href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/settings`} target="_blank" rel="noopener noreferrer" className="text-amber-400 underline hover:text-amber-300 inline-flex items-center gap-0.5">Firebase Auth Settings Tab <ExternalLink className="w-3.5 h-3.5 inline shrink-0" /></a>.</li>
+                    <li>Locate the <strong>Authorized Domains</strong> section.</li>
+                    <li>Click <strong>Add domain</strong>.</li>
+                    <li>Paste <code className="text-amber-405 bg-black/60 px-1 py-0.5 rounded font-mono">{window.location.hostname}</code> and click **Add**.</li>
+                    <li>Close this popup and try logging in again!</li>
+                  </ol>
+                </div>
               </div>
-              <p className="text-zinc-355 leading-relaxed text-[11px] text-left">
-                Firebase limits sign-in traffic to authorized URLs. Please whitelist this preview domain in your project console:
-              </p>
-              <div className="bg-black/40 rounded p-2 text-[11px] space-y-1 text-left font-mono border border-amber-500/10">
-                <div className="text-zinc-400">Domain to add:</div>
-                <div className="text-amber-400 select-all font-bold">{window.location.hostname}</div>
-              </div>
-              <div className="pt-2 border-t border-amber-500/10 space-y-2 text-[11px] text-zinc-400 text-left">
-                <p><strong>Remediation Steps:</strong></p>
-                <ol className="list-decimal pl-4 space-y-1.5 text-zinc-350">
-                  <li>Go to your <a href="https://console.firebase.google.com/project/purplexity-4eef7/authentication/settings" target="_blank" rel="noopener noreferrer" className="text-amber-400 underline hover:text-amber-300 inline-flex items-center gap-0.5">Firebase Auth Settings Tab <ExternalLink className="w-3.5 h-3.5 inline shrink-0" /></a>.</li>
-                  <li>Locate the <strong>Authorized Domains</strong> section.</li>
-                  <li>Click <strong>Add domain</strong>.</li>
-                  <li>Paste <code className="text-amber-405 bg-black/60 px-1 py-0.5 rounded font-mono">{window.location.hostname}</code> and click **Add**.</li>
-                  <li>Close this popup and try logging in again!</li>
-                </ol>
-              </div>
-            </div>
-          )}
+            );
+          })()}
 
         </div>
 

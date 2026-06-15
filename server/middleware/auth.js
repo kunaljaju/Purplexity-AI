@@ -1,7 +1,11 @@
 import jwt from "jsonwebtoken";
 import { getPrisma } from "../db.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "purplexity-super-secret-key-2026";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  console.warn("[Auth Middleware] Warning: JWT_SECRET environment variable is not defined.");
+}
 
 /**
  * Production-ready JWT authentication middleware for PostgreSQL via Prisma.

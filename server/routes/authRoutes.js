@@ -5,8 +5,15 @@ import https from "https";
 import { getPrisma, isDatabaseConfigured } from "../db.js";
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || "purplexity-super-secret-key-2026";
-const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID || "purplexity-4eef7";
+const JWT_SECRET = process.env.JWT_SECRET;
+const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
+
+if (!JWT_SECRET) {
+  console.warn("[Auth Routes] Warning: JWT_SECRET environment variable is not defined.");
+}
+if (!FIREBASE_PROJECT_ID) {
+  console.warn("[Auth Routes] Warning: FIREBASE_PROJECT_ID environment variable is not defined.");
+}
 
 // Simple in-memory cache for Google public certificates
 let googleCertificates = null;
