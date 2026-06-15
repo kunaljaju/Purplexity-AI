@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Sparkles, BookOpen, PenTool, Globe, Plus, ArrowUp, Cpu, ChevronDown } from "lucide-react";
+import { Search, Sparkles, BookOpen, PenTool, Globe, ArrowUp, Cpu, ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import { PurplexityLogo } from "./PurplexityLogo";
 
@@ -135,18 +135,6 @@ export const LandingSearchPanel = ({
           
           <div className={`flex flex-row items-center justify-between gap-3 mt-2 pt-2 border-t ${isDarkMode === false ? "border-zinc-100" : "border-white/5"}`}>
             <div className="flex flex-wrap gap-1.5 sm:gap-2 items-center select-none">
-              <button 
-                id="landing-attach-files-btn"
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs transition-colors cursor-pointer ${
-                  isDarkMode === false 
-                    ? "bg-zinc-100 border-zinc-200 hover:bg-zinc-200 text-zinc-600"
-                    : "bg-white/5 border-white/5 text-zinc-400 hover:bg-white/10"
-                }`}
-              >
-                <Plus className="w-3.5 h-3.5 text-purple-400" />
-                Attach
-              </button>
-
               {/* Dynamic OpenRouter Model Selector dropdown inside input box */}
               <div className="relative flex items-center">
                 <motion.span 
