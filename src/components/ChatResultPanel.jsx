@@ -9,11 +9,12 @@ import { PurplexityLogo } from "./PurplexityLogo";
 
 const AVAILABLE_MODELS = [
   { id: "google/gemini-2.5-flash", label: "Gemini 2.5 Flash" },
-  { id: "google/gemini-2.5-pro", label: "Gemini 2.5 Pro" },
-  { id: "anthropic/claude-3.5-sonnet", label: "Claude 3.5 Sonnet" },
-  { id: "openai/gpt-4o", label: "GPT-4o" },
-  { id: "openai/gpt-4o-mini", label: "GPT-4o mini" },
-  { id: "meta-llama/llama-3.3-70b-instruct", label: "Llama 3.3 70B" },
+  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3 70B" },
+  { id: "meta-llama/llama-3.2-3b-instruct:free", label: "Llama 3.2 3B" },
+  { id: "nousresearch/hermes-3-llama-3.1-405b:free", label: "Hermes 3 405B" },
+  { id: "google/gemma-4-31b-it:free", label: "Gemma 4 31B" },
+  { id: "qwen/qwen3-coder:free", label: "Qwen 3 Coder" },
+  { id: "cognitivecomputations/dolphin-mistral-24b-venice-edition:free", label: "Dolphin Mistral 24B" },
 ];
 
 const AVAILABLE_MODES = [
