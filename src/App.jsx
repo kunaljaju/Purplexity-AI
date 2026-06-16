@@ -38,6 +38,7 @@ import { Sidebar } from "./components/Sidebar";
 import { LandingSearchPanel } from "./components/LandingSearchPanel";
 import { DashboardView } from "./components/DashboardView";
 import { ChatResultPanel } from "./components/ChatResultPanel";
+import { FormattedTable } from "./components/FormattedTable";
 
 export default function App() {
   const [query, setQuery] = useState("");
